@@ -46,6 +46,18 @@ def category_items(category_name):
                            category_items=category_items)
 
 
+@app.route('/<string:category_name>/<string:item_name>')
+def item(category_name, item_name):
+    category = session.query(Category)\
+                      .filter_by(name=category_name)\
+                      .one()
+    item = session.query(Item)\
+                  .filter_by(category_id=category.id)\
+                  .filter_by(name=item_name)\
+                  .one()
+    return render_template('item.html', item=item)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8000)

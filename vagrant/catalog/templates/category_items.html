@@ -14,8 +14,8 @@
     <h1>{{ category.name }} Items</h1>
 
     <ul>
-        {% for category_item in category_items %}
-        <li><a href='#'>{{ category_item.name }}</a></li>
+        {% for item in category_items %}
+        <li><a href='{{ url_for('item', category_name=category.name, item_name=item.name) }}'>{{ item.name }}</a></li>
         {% endfor %}
     </ul>
 </body>

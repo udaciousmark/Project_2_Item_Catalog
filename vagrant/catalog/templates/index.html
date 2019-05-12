@@ -15,7 +15,7 @@
 
     <ul>
         {% for latest_item in latest_items %}
-        <li><a href='#'>{{ latest_item.Item.name }} ({{ latest_item.Category.name }})</a></li>
+        <li><a href='{{ url_for('item', category_name=latest_item.Category.name, item_name=latest_item.Item.name) }}'>{{ latest_item.Item.name }} ({{ latest_item.Category.name }})</a></li>
         {% endfor %}
     </ul>
 </body>
