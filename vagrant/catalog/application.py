@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 from sqlalchemy import create_engine
 from sqlalchemy import desc
 from sqlalchemy.orm import sessionmaker
@@ -156,6 +156,21 @@ def delete_item(category_name, item_name):
         return redirect(url_for('category_items', category_name=category.name))
     else:
         return render_template('delete_item.html', category=category, item=item_to_delete)
+
+
+@app.route('/catalog.json')
+def catalog_json():
+    all_categories = session.query(Category).all()
+    catalog = {"categories": []}
+
+    for category in all_categories:
+        items = session.query(Item)\
+                       .filter_by(category_id=category.id)\
+                       .all()
+        category_json = category.serialize
+        category_json.update(items=[i.serialize for i in items])
+        catalog['categories'].append(category_json)
+    return jsonify(catalog=catalog)
 
 
 if __name__ == '__main__':
