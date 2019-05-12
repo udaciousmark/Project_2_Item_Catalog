@@ -20,7 +20,8 @@ session = DBSession()
 def index():
     categories = session.query(Category).all()
     num_latest_items = 10
-    latest_items = session.query(Item)\
+    latest_items = session.query(Item, Category)\
+                          .join(Category, Item.category_id==Category.id)\
                           .order_by(desc(Item.id))\
                           .limit(num_latest_items)\
                           .all()
