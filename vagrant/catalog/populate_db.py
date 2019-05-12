@@ -15,9 +15,9 @@ category_items = []
 category_items.append({
     "category": "Skiing",
     "items": [
-        { "name": "Gloves" },
-        { "name": "Goggles" },
-        { "name": "Jacket" },
+        { "name": "Ski Gloves" },
+        { "name": "Ski Goggles" },
+        { "name": "Ski Jacket" },
         { "name": "Ski poles" },
         { "name": "Skis" },
     ]
@@ -25,31 +25,31 @@ category_items.append({
 category_items.append({
     "category": "Snowboarding",
     "items": [
-        { "name": "Gloves" },
-        { "name": "Goggles" },
-        { "name": "Jacket" },
+        { "name": "Snowboarding Gloves" },
+        { "name": "Snowboarding Goggles" },
+        { "name": "Snowboarding Jacket" },
         { "name": "Snowboard" },
     ]
 })
 category_items.append({
     "category": "Soccer",
     "items": [
-        { "name": "Ball" },
-        { "name": "Gloves" },
-        { "name": "Goal Post" },
-        { "name": "Shin Guards" },
-        { "name": "Uniform" },
+        { "name": "Soccer Ball" },
+        { "name": "Soccer Gloves" },
+        { "name": "Soccer Goal Post" },
+        { "name": "Soccer Shin Guards" },
+        { "name": "Soccer Uniform" },
     ]
 })
 category_items.append({
     "category": "Tennis",
     "items": [
-        { "name": "Balls (3-pack)" },
-        { "name": "Hat" },
-        { "name": "Headband" },
-        { "name": "Racket" },
-        { "name": "Shirt (black)" },
-        { "name": "Shirt (white)" },
+        { "name": "Tennis Balls (3-pack)" },
+        { "name": "Tennis Hat" },
+        { "name": "Tennis Headband" },
+        { "name": "Tennis Racket" },
+        { "name": "Tennis Shirt (black)" },
+        { "name": "Tennis Shirt (white)" },
     ]
 })
 
