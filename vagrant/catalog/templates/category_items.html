@@ -11,11 +11,11 @@
         {% endfor %}
     </ul>
 
-    <h1>Latest Items</h1>
+    <h1>{{ category.name }} Items</h1>
 
     <ul>
-        {% for latest_item in latest_items %}
-        <li><a href='#'>{{ latest_item.Item.name }} ({{ latest_item.Category.name }})</a></li>
+        {% for category_item in category_items %}
+        <li><a href='#'>{{ category_item.name }}</a></li>
         {% endfor %}
     </ul>
 </body>

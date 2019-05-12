@@ -18,16 +18,32 @@ session = DBSession()
 
 @app.route('/')
 def index():
-    categories = session.query(Category).all()
+    all_categories = session.query(Category).all()
     num_latest_items = 10
     latest_items = session.query(Item, Category)\
-                          .join(Category, Item.category_id==Category.id)\
+                          .join(Category, Item.category_id == Category.id)\
                           .order_by(desc(Item.id))\
                           .limit(num_latest_items)\
                           .all()
     return render_template('index.html',
-                           categories=categories,
+                           all_categories=all_categories,
                            latest_items=latest_items)
+
+
+@app.route('/<string:category_name>/items')
+def category_items(category_name):
+    all_categories = session.query(Category).all()
+    category = session.query(Category)\
+                      .filter_by(name=category_name)\
+                      .one()
+    category_items = session.query(Item)\
+                            .filter_by(category_id=category.id)\
+                            .order_by(Item.name)\
+                            .all()
+    return render_template('category_items.html',
+                           all_categories=all_categories,
+                           category=category,
+                           category_items=category_items)
 
 
 if __name__ == '__main__':
