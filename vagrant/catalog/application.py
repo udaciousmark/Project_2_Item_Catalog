@@ -30,7 +30,7 @@ def index():
                            latest_items=latest_items)
 
 
-@app.route('/<string:category_name>/items')
+@app.route('/catalog/<string:category_name>/items')
 def category_items(category_name):
     all_categories = session.query(Category).all()
     category = session.query(Category)\
@@ -46,7 +46,7 @@ def category_items(category_name):
                            category_items=category_items)
 
 
-@app.route('/<string:category_name>/<string:item_name>')
+@app.route('/catalog/<string:category_name>/<string:item_name>')
 def item(category_name, item_name):
     category = session.query(Category)\
                       .filter_by(name=category_name)\
