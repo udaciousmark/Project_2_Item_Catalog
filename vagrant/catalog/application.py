@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template
 from sqlalchemy import create_engine
+from sqlalchemy import desc
 from sqlalchemy.orm import sessionmaker
 
 from database_setup import Base, Category, Item
@@ -18,7 +19,14 @@ session = DBSession()
 @app.route('/')
 def index():
     categories = session.query(Category).all()
-    return render_template('index.html', categories=categories)
+    num_latest_items = 10
+    latest_items = session.query(Item)\
+                          .order_by(desc(Item.id))\
+                          .limit(num_latest_items)\
+                          .all()
+    return render_template('index.html',
+                           categories=categories,
+                           latest_items=latest_items)
 
 
 if __name__ == '__main__':
