@@ -55,15 +55,15 @@ def item(category_name, item_name):
                   .filter_by(category_id=category.id)\
                   .filter_by(name=item_name)\
                   .one()
-    return render_template('item.html', item=item)
+    return render_template('item.html', category=category, item=item)
 
 
 @app.route('/catalog/new_item', methods=['GET', 'POST'])
 def new_item():
     if request.method == 'POST':
-        category_name = request.form['category_name']
         item_name=request.form['item_name']
         item_description=request.form['item_description']
+        category_name = request.form['category_name']
 
         category = session.query(Category)\
                           .filter_by(name=category_name)\
@@ -97,6 +97,48 @@ def new_item():
         return redirect(url_for('category_items', category_name=category_name))
     else:
         return render_template('new_item.html')
+
+
+@app.route('/catalog/<string:category_name>/<string:item_name>/edit', methods=['GET', 'POST'])
+def edit_item(category_name, item_name):
+
+    if request.method == 'POST':
+        original_category_name = category_name
+        original_category = session.query(Category)\
+                                   .filter_by(name=original_category_name)\
+                                   .one()
+        item = session.query(Item)\
+                      .filter_by(name=item_name)\
+                      .filter_by(category_id=original_category.id)\
+                      .first()
+
+        new_category_name = request.form['category_name']
+        new_category = session.query(Category)\
+                          .filter_by(name=new_category_name)\
+                          .first()
+        if new_category is None:
+            new_category = Category(name=new_category_name)
+            session.add(new_category)
+            session.commit()
+
+        item.name = request.form['item_name']
+        item.description = request.form['item_description']
+        item.category_id = new_category.id
+
+        session.add(item)
+        session.commit()
+
+        return redirect(url_for('category_items', category_name=new_category.name))
+    else:
+        category = session.query(Category)\
+                          .filter_by(name=category_name)\
+                          .one()
+        item = session.query(Item)\
+                      .filter_by(category_id=category.id)\
+                      .filter_by(name=item_name)\
+                      .one()
+
+        return render_template('edit_item.html', category=category, item=item)
 
 
 if __name__ == '__main__':

@@ -6,5 +6,7 @@
     <h1>{{ item.name }}</h1>
 
     <p>{{ item.description }}</p>
+
+    <a href="{{ url_for('edit_item', category_name=category.name, item_name=item.name) }}">Edit</a>
 </body>
 </html>
