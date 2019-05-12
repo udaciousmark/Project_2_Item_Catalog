@@ -1,0 +1,20 @@
+<html>
+<head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>New Item</h1>
+
+    <form action="" method="post">
+        <p>Category:</p>
+        <input type="text" maxlength="100" name="category_name">
+        <p>Name:</p>
+        <input type="text" maxlength="100" name="item_name">
+        <p>Description:</p>
+        <textarea type="text" maxlength="500" name="item_description"></textarea>
+        </br>
+        </br>
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>
