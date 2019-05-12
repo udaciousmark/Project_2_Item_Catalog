@@ -141,6 +141,23 @@ def edit_item(category_name, item_name):
         return render_template('edit_item.html', category=category, item=item)
 
 
+@app.route('/catalog/<string:category_name>/<string:item_name>/delete', methods=['GET', 'POST'])
+def delete_item(category_name, item_name):
+    category = session.query(Category)\
+                      .filter_by(name=category_name)\
+                      .one()
+    item_to_delete = session.query(Item)\
+                            .filter_by(category_id=category.id)\
+                            .filter_by(name=item_name)\
+                            .one()
+    if request.method == 'POST':
+        session.delete(item_to_delete)
+        session.commit()
+        return redirect(url_for('category_items', category_name=category.name))
+    else:
+        return render_template('delete_item.html', category=category, item=item_to_delete)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8000)
